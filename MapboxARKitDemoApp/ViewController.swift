@@ -159,6 +159,7 @@ class ViewController: UIViewController {
                 for i in stride(from: metersPerNode, to: self.distance(from: turfPolyline.coordinates!.first!, to: turfPolyline.coordinates!.last!) - metersPerNode, by: metersPerNode) {
                     // Use Turf to find the coordinate of each incremented distance along the polyline
                     if let nextCoordinate = turfPolyline.coordinates?.first {
+                        //MARK: Have problems with this navigation. Still trying to figure it out
                         let interpolatedStepLocation = CLLocation(latitude: nextCoordinate.latitude, longitude: nextCoordinate.longitude)
                         
                         // Update feature collection for map view
