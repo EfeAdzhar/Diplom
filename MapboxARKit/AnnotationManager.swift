@@ -1,7 +1,6 @@
 import ARKit
 import SpriteKit
 import CoreLocation
-
 @objc public protocol AnnotationManagerDelegate {
     
     @objc optional func node(for annotation: Annotation) -> SCNNode?

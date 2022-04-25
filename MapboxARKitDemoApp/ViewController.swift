@@ -7,6 +7,8 @@ import CoreLocation
 import MapboxARKit
 import Mapbox
 import MapboxDirections
+import Mapbox.MGLPolyline
+import Polyline
 import Turf
 
 class ViewController: UIViewController {
@@ -101,7 +103,7 @@ class ViewController: UIViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else { return }        
+        guard let touch = touches.first else { return }
         let result = sceneView.hitTest(touch.location(in: sceneView), options: [SCNHitTestOption.firstFoundOnly : true]).first
         if let node = result?.node, let annotation = annotationManager.annotationsByNode[node] {
             annotationManager.removeAnnotation(annotation: annotation)
@@ -119,7 +121,7 @@ class ViewController: UIViewController {
         let waypoints = [
             Waypoint(coordinate: CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude), name: "start"),
             Waypoint(coordinate: CLLocationCoordinate2D(latitude: endLocation.coordinate.latitude, longitude: endLocation.coordinate.longitude), name: "end"),
-            ]
+        ]
         
         // Ask for walking directions
         let options = RouteOptions(waypoints: waypoints, profileIdentifier: .walking)
@@ -128,21 +130,19 @@ class ViewController: UIViewController {
         var annotationsToAdd = [Annotation]()
         
         // Initiate the query
-        let _ = directions.calculate(options) { (waypoints, routes, error) in
-            guard error == nil else {
-                print("Error calculating directions: \(error!)")
-                return
-            }
-            
-            // If a route is returned:
-            if let route = routes?.first, let leg = route.legs.first {
+        let _ = directions.calculate(options, completionHandler: { (waypoints, result) in
+            switch result {
+            case .success(let response):
+                guard let route = response.routes?.first, let leg = route.legs.first else { return }
+                // If a route is returned:
+                
                 var polyline = [CLLocationCoordinate2D]()
                 
                 // Add an AR node and map view annotation for every defined "step" in the route
-                for step in leg.steps {
-                    let coordinate = step.coordinates!.first!
-                    polyline.append(coordinate)
-                    let stepLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                for step in leg.steps{
+                    let coordinate = step.shape?.coordinates.first
+                    polyline.append(coordinate!)
+                    let stepLocation = CLLocation(latitude: coordinate!.latitude, longitude: (coordinate?.longitude)!)
                     
                     // Update feature collection for map view
                     self.updateShapeCollectionFeature(&self.waypointShapeCollectionFeature, with: stepLocation, typeKey: "waypoint-type", typeAttribute: "big")
@@ -152,13 +152,13 @@ class ViewController: UIViewController {
                     annotationsToAdd.append(annotation)
                 }
                 
-                let metersPerNode: CLLocationDistance = 5
-                let turfPolyline = Polyline(polyline) 
+                let metersPerNode: CLLocationDistance = 3
+                let turfPolyline = Polyline(coordinates: polyline)
                 
                 // Walk the route line and add a small AR node and map view annotation every metersPerNode
-                for i in stride(from: metersPerNode, to: turfPolyline.distance() - metersPerNode, by: metersPerNode) {
+                for i in stride(from: metersPerNode, to: self.distance(from: turfPolyline.coordinates!.first!, to: turfPolyline.coordinates!.last!) - metersPerNode, by: metersPerNode) {
                     // Use Turf to find the coordinate of each incremented distance along the polyline
-                    if let nextCoordinate = turfPolyline.coordinateFromStart(distance: i) {
+                    if let nextCoordinate = turfPolyline.coordinates?.first {
                         let interpolatedStepLocation = CLLocation(latitude: nextCoordinate.latitude, longitude: nextCoordinate.longitude)
                         
                         // Update feature collection for map view
@@ -175,14 +175,22 @@ class ViewController: UIViewController {
                 
                 // Update the annotation manager with the latest AR annotations
                 self.annotationManager.addAnnotations(annotations: annotationsToAdd)
+                
+            case .failure(let error): print(error)
             }
-        }
+        })
         
         // Put the map view into a "follow with course" tracking mode
         mapView.userTrackingMode = .followWithCourse
     }
     
     // MARK: - Utility methods
+    
+    func distance(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D) -> CLLocationDistance {
+        let from = CLLocation(latitude: from.latitude, longitude: from.longitude)
+        let to = CLLocation(latitude: to.latitude, longitude: to.longitude)
+        return from.distance(from: to)
+    }
     
     private func startSession() {
         // Create a session configuration
@@ -234,7 +242,6 @@ class ViewController: UIViewController {
 }
 
 // MARK: - AnnotationManagerDelegate
-
 extension ViewController: AnnotationManagerDelegate {
     
     func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
@@ -294,7 +301,6 @@ extension ViewController: AnnotationManagerDelegate {
 }
 
 // MARK: - MGLMapViewDelegate
-
 extension ViewController: MGLMapViewDelegate {
     
     func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
@@ -379,7 +385,6 @@ extension SCNNode {
         let act = SCNAction.repeatForever(SCNAction.sequence([act0, act1]))
         self.runAction(act)
     }
-    
 }
 
 extension UIColor {
@@ -394,5 +399,4 @@ extension UIColor {
                             alpha: fromComponents[3] + (toComponents[3] - fromComponents[3]) * percentage)
         return color
     }
-    
 }

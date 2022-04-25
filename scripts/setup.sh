@@ -6,4 +6,4 @@ if ! command -v carthage > /dev/null; then
   exit 1
 fi
 
-carthage update --platform iOS
+carthage update --platform iOS --use-xcframeworks
