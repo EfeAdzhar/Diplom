@@ -25,8 +25,9 @@ class ViewController: UIViewController {
     // the demo to work. However, its accuracy can be poor and it can
     // often make more sense to manually help the demo calibrate by starting
     // app while facing North. If you do that, change this setting to false
-    var automaticallyFindTrueNorth = true
+    var automaticallyFindTrueNorth = false // it was true
     
+    @IBOutlet weak var coordinatesButton: UIButton!
     @IBOutlet weak var cameraStateInfoLabel: UILabel!
     @IBOutlet weak var mapView: MGLMapView!
     @IBOutlet var sceneView: ARSCNView!
@@ -58,7 +59,7 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        coordinatesButtonPressed(coordinatesButton)
         // Start the AR session
         startSession()
     }
@@ -71,6 +72,13 @@ class ViewController: UIViewController {
     }
     
     // MARK: - Actions
+    
+    //Button of Coordinates
+    
+    @IBAction func coordinatesButtonPressed(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "sequeToTableView", sender: coordinatesButton)
+    }
+    
     
     // Handle a long press on the Mapbox map view
     @IBAction func didLongPress(_ recognizer: UILongPressGestureRecognizer) {
@@ -152,7 +160,7 @@ class ViewController: UIViewController {
                     annotationsToAdd.append(annotation)
                 }
                 
-                let metersPerNode: CLLocationDistance = 3
+                let metersPerNode: CLLocationDistance = 1 // was 3
                 let turfPolyline = Polyline(coordinates: polyline)
                 
                 // Walk the route line and add a small AR node and map view annotation every metersPerNode

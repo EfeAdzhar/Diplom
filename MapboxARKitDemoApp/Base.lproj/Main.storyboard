@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -67,10 +68,19 @@
                                             <constraint firstAttribute="bottomMargin" secondItem="1fU-8Q-aWN" secondAttribute="bottom" constant="4" id="siI-Ja-NhE"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vdX-7u-ldO">
+                                        <rect key="frame" x="288" y="75" width="79" height="52"/>
+                                        <color key="backgroundColor" systemColor="systemGrayColor"/>
+                                        <color key="tintColor" systemColor="systemIndigoColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Places"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="xsd-Rz-tXC" secondAttribute="trailing" id="5hc-6x-DwD"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vdX-7u-ldO" secondAttribute="trailing" symbolic="YES" id="QI8-Ce-VJX"/>
+                                    <constraint firstItem="vdX-7u-ldO" firstAttribute="leading" secondItem="b4U-HR-kJu" secondAttribute="leading" constant="288" id="R4m-Gf-3ty"/>
                                     <constraint firstItem="xsd-Rz-tXC" firstAttribute="leading" secondItem="b4U-HR-kJu" secondAttribute="leading" id="aaQ-ME-kF6"/>
                                     <constraint firstAttribute="bottom" secondItem="xsd-Rz-tXC" secondAttribute="bottom" id="gm1-V0-ioj"/>
                                 </constraints>
@@ -89,6 +99,7 @@
                         <outlet property="controlsContainerView" destination="xsd-Rz-tXC" id="yZg-Ci-rl9"/>
                         <outlet property="mapView" destination="1fU-8Q-aWN" id="E5k-A7-mMS"/>
                         <outlet property="sceneView" destination="b4U-HR-kJu" id="SES-JT-mEz"/>
+                        <segue destination="qVE-pp-nbS" kind="modal" id="aIZ-lC-neI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
@@ -100,8 +111,45 @@
             </objects>
             <point key="canvasLocation" x="32.799999999999997" y="38.23088455772114"/>
         </scene>
+        <!--Coordinate Table View-->
+        <scene sceneID="m8U-oc-WOK">
+            <objects>
+                <tableViewController id="qVE-pp-nbS" customClass="CoordinateTableView" customModule="MapboxARKitDemoApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="eKf-tr-USO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="bDa-Qv-FEl">
+                                <rect key="frame" x="0.0" y="44.5" width="375" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bDa-Qv-FEl" id="hqJ-uS-aCt">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="qVE-pp-nbS" id="Uxh-BK-V6C"/>
+                            <outlet property="delegate" destination="qVE-pp-nbS" id="AGN-io-gqt"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vd4-tf-G1d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="830" y="38"/>
+        </scene>
     </scenes>
     <resources>
         <image name="crosshairs" width="640" height="638"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

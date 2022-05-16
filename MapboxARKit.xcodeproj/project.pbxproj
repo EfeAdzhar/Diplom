@@ -37,6 +37,7 @@
 		B498523C28059706006DDF79 /* MapboxDirections.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50AE06DF27FC60010031AD44 /* MapboxDirections.xcframework */; };
 		B498523D28059709006DDF79 /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40CDD5C31F3CE3DC00937EF1 /* Mapbox.framework */; };
 		B498523E2805970C006DDF79 /* Polyline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40CDD5B71F3CE3C200937EF1 /* Polyline.framework */; platformFilter = ios; };
+		B4A0B32B2832A84200245167 /* CoordinateTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A0B32A2832A84200245167 /* CoordinateTableView.swift */; };
 		B4AF6247280341CB004D273D /* Turf.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4AF6246280341CB004D273D /* Turf.xcframework */; };
 		B4AF6248280341CB004D273D /* Turf.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B4AF6246280341CB004D273D /* Turf.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B4AF624A28034377004D273D /* MapboxDirections.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50AE06DF27FC60010031AD44 /* MapboxDirections.xcframework */; };
@@ -101,6 +102,7 @@
 		50AE06DF27FC60010031AD44 /* MapboxDirections.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MapboxDirections.xcframework; path = Carthage/Build/MapboxDirections.xcframework; sourceTree = "<group>"; };
 		50AE06E827FC63200031AD44 /* mapbox_access_token */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = mapbox_access_token; path = MapboxARKitDemoApp/mapbox_access_token; sourceTree = SOURCE_ROOT; };
 		50AE06EB27FC63280031AD44 /* mapbox_access_token */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mapbox_access_token; sourceTree = "<group>"; };
+		B4A0B32A2832A84200245167 /* CoordinateTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateTableView.swift; sourceTree = "<group>"; };
 		B4AF6246280341CB004D273D /* Turf.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Turf.xcframework; path = Carthage/Build/Turf.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -202,6 +204,7 @@
 			children = (
 				40DEF9A81F3CE1570089629A /* AppDelegate.swift */,
 				40DEF9AA1F3CE1570089629A /* ViewController.swift */,
+				B4A0B32A2832A84200245167 /* CoordinateTableView.swift */,
 				50AE06EB27FC63280031AD44 /* mapbox_access_token */,
 				40DEF9AC1F3CE1570089629A /* Main.storyboard */,
 				40DEF9B11F3CE1570089629A /* LaunchScreen.storyboard */,
@@ -398,6 +401,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				40DEF9AB1F3CE1570089629A /* ViewController.swift in Sources */,
+				B4A0B32B2832A84200245167 /* CoordinateTableView.swift in Sources */,
 				40DEF9A91F3CE1570089629A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
