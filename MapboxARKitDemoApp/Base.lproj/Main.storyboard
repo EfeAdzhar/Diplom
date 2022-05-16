@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -68,17 +68,21 @@
                                             <constraint firstAttribute="bottomMargin" secondItem="1fU-8Q-aWN" secondAttribute="bottom" constant="4" id="siI-Ja-NhE"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vdX-7u-ldO">
-                                        <rect key="frame" x="288" y="75" width="79" height="52"/>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vdX-7u-ldO">
+                                        <rect key="frame" x="253" y="298" width="106" height="52"/>
                                         <color key="backgroundColor" systemColor="systemGrayColor"/>
                                         <color key="tintColor" systemColor="systemIndigoColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Places"/>
+                                        <connections>
+                                            <action selector="coordinatesButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="b6F-Jw-ekC"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="xsd-Rz-tXC" secondAttribute="trailing" id="5hc-6x-DwD"/>
+                                    <constraint firstItem="xsd-Rz-tXC" firstAttribute="top" secondItem="vdX-7u-ldO" secondAttribute="bottom" constant="8" symbolic="YES" id="6w0-iO-P2m"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vdX-7u-ldO" secondAttribute="trailing" symbolic="YES" id="QI8-Ce-VJX"/>
                                     <constraint firstItem="vdX-7u-ldO" firstAttribute="leading" secondItem="b4U-HR-kJu" secondAttribute="leading" constant="288" id="R4m-Gf-3ty"/>
                                     <constraint firstItem="xsd-Rz-tXC" firstAttribute="leading" secondItem="b4U-HR-kJu" secondAttribute="leading" id="aaQ-ME-kF6"/>
@@ -97,9 +101,10 @@
                     <connections>
                         <outlet property="cameraStateInfoLabel" destination="hr6-xB-9hH" id="9eg-IA-zDf"/>
                         <outlet property="controlsContainerView" destination="xsd-Rz-tXC" id="yZg-Ci-rl9"/>
+                        <outlet property="coordinatesButton" destination="vdX-7u-ldO" id="Ivj-uZ-NBl"/>
                         <outlet property="mapView" destination="1fU-8Q-aWN" id="E5k-A7-mMS"/>
                         <outlet property="sceneView" destination="b4U-HR-kJu" id="SES-JT-mEz"/>
-                        <segue destination="qVE-pp-nbS" kind="modal" id="aIZ-lC-neI"/>
+                        <segue destination="qVE-pp-nbS" kind="modal" identifier="gotoTableView" id="aIZ-lC-neI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
@@ -116,7 +121,7 @@
             <objects>
                 <tableViewController id="qVE-pp-nbS" customClass="CoordinateTableView" customModule="MapboxARKitDemoApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="eKf-tr-USO">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>

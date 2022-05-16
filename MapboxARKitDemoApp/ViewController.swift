@@ -42,6 +42,7 @@ class ViewController: UIViewController {
     var waypointShapeCollectionFeature: MGLShapeCollectionFeature?
     
     override func viewDidLoad() {
+        coordinatesButtonPressed(coordinatesButton)
         super.viewDidLoad()
         
         // Configure and style control and map views
@@ -59,7 +60,6 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        coordinatesButtonPressed(coordinatesButton)
         // Start the AR session
         startSession()
     }
@@ -76,7 +76,7 @@ class ViewController: UIViewController {
     //Button of Coordinates
     
     @IBAction func coordinatesButtonPressed(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "sequeToTableView", sender: coordinatesButton)
+        self.performSegue(withIdentifier: "gotoTableView", sender: coordinatesButton)
     }
     
     
